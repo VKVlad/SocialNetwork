@@ -1,2 +1,6 @@
 .DS_Store
 .idea
+/frontend/node_modules
+/frontend/node_modules
+backend/src/main/resources/application.properties
+backend/src/main/resources/application.properties

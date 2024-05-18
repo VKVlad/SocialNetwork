@@ -23,7 +23,7 @@ import {
   LIKE_POST_SUCCESS,
   SAVE_POST_FAILURE,
   SAVE_POST_REQUEST,
-  SAVE_POST_SUCCESS,
+  SAVE_POST_SUCCESS, SHARE_POST_FAILURE, SHARE_POST_REQUEST, SHARE_POST_SUCCESS,
 } from "./post.actionType";
 
 export const createPostAction = (postData) => async (dispatch) => {
@@ -58,6 +58,21 @@ export const getAllPostAction = () => async (dispatch) => {
       dispatch({ type: GET_ALL_POST_FAILURE, payload: error });
     }
   };
+
+export const sharePostAction = (postId, email) => async (dispatch) => {
+  dispatch({ type: SHARE_POST_REQUEST });
+  try {
+    const { data } = await api.post(`/api/posts/share/${postId}`, null, {
+      params: {
+        email: email,
+      },
+    });
+    dispatch({ type: SHARE_POST_SUCCESS, payload: data });
+  } catch (error) {
+    console.log("error ", error);
+    dispatch({ type: SHARE_POST_FAILURE, payload: error });
+  }
+};
 
   export const getUsersPostAction = (userId) => async (dispatch) => {
     dispatch({ type: GET_USERS_POST_REQUEST });

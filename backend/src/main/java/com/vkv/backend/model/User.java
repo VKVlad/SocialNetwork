@@ -26,7 +26,6 @@ public class User {
     private String email;
     private String password;
     private String gender;
-    @Setter
     private String username;
     private String avatarUrl;
     private String profilePictureUrl;

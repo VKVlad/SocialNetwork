@@ -1,4 +1,4 @@
-import { Avatar, Button, Card } from "@mui/material";
+import {Avatar, Button, Card, IconButton, Typography} from "@mui/material";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
@@ -12,6 +12,8 @@ import { getUsersPostAction, getUsersSavedPostAction } from "../../Redux/Post/po
 import { followUserAction, getProfileByIdAction } from "../../Redux/User/user.action";
 import { isFollowedByReqUser } from "../../utils/checkSavedLiked";
 import { getUsersReelsAction } from "../../Redux/Reel/reel.action";
+import IosShareIcon from '@mui/icons-material/IosShare';
+import Modal from "@mui/material/Modal";
 
 const tabs = [
   { value: "post", name: "Post" },
@@ -43,6 +45,7 @@ const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   return (
     <Card className="my-10 w-[70%]">
       <div className="rounded-md">
@@ -140,6 +143,7 @@ const Profile = () => {
         <ProfileModal open={open} handleClose={handleClose} />
       </section>
     </Card>
+
   );
 };
 

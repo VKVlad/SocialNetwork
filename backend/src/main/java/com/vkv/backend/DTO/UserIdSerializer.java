@@ -15,7 +15,11 @@ public class UserIdSerializer extends StdSerializer<User> {
     @Override
     public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeNumberField("id", user.getId());
+        if (user.getId() != null) {
+            jsonGenerator.writeNumberField("id", user.getId());
+        } else {
+            jsonGenerator.writeNullField("id");
+        }
         jsonGenerator.writeStringField("firstName", user.getFirstName());
         jsonGenerator.writeStringField("lastName", user.getLastName());
         jsonGenerator.writeStringField("email", user.getEmail());

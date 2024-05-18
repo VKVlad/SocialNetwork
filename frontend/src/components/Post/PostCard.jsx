@@ -1,5 +1,5 @@
 import {
-  Avatar,
+  Avatar, Button,
   Card,
   CardActions,
   CardContent,
@@ -7,7 +7,7 @@ import {
   Divider,
   IconButton,
   Menu,
-  MenuItem,
+  MenuItem, TextField,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -23,13 +23,31 @@ import {
   createCommentAction,
   deletePostAction,
   likePostAction,
-  savePostAction,
+  savePostAction, sharePostAction,
 } from "../../Redux/Post/post.action";
 import {
   isLikedByReqUser,
   isSavedByReqUser,
 } from "../../utils/checkSavedLiked";
 import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 2,
+  outline: "none",
+  overFlow: "scroll-y",
+  borderRadius: 3,
+};
+
 
 const PostCard = ({ item }) => {
   const [showComments, setShowComments] = useState(false);
@@ -59,8 +77,57 @@ const PostCard = ({ item }) => {
     dispatch(savePostAction(item.id));
   };
 
+  const [openShare, setOpenShare] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+
+  const handleOpenShare = () => setOpenShare(true);
+  const handleCloseShare = () => setOpenShare(false);
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleSendEmail = () => {
+    dispatch(sharePostAction(item.id, email));
+    console.log(`Send post ${item.id} to email: ${email}`);
+    setEmail("")
+    handleCloseShare();
+  };
+
   return (
     <Card className="w-full md:w-4/5 lg:w-4/5 mx-auto my-4">
+      <Modal
+          open={openShare}
+          onClose={handleCloseShare}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
+            Share Post
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ display: 'flex', justifyContent: 'center' }}>
+            Enter the email address to send this post:
+          </Typography>
+          <TextField
+              fullWidth
+              label="Email"
+              variant="outlined"
+              value={email}
+              onChange={handleEmailChange}
+              sx={{ mt: 2, mb: 2 }}
+          />
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSendEmail}
+            >
+              Send
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
       <CardHeader
         avatar={
           <Link to={`/profile/${item.user.id}`}>
@@ -136,8 +203,8 @@ const PostCard = ({ item }) => {
           <IconButton aria-label="comment" onClick={handleShowComments}>
             <ChatBubbleOutlineIcon />
           </IconButton>
-          <IconButton aria-label="share">
-            <SendIcon />
+          <IconButton onClick={handleOpenShare}>
+            <SendIcon/>
           </IconButton>
         </div>
         <div>

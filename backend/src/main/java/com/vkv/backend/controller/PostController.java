@@ -29,6 +29,14 @@ public class PostController {
         return new ResponseEntity<>(createdPost, HttpStatus.ACCEPTED);
     }
 
+    @PostMapping("/api/posts/share/{postId}")
+    public ResponseEntity<Post> sharePost(@RequestHeader("Authorization") String jwt, @PathVariable Integer postId, @RequestParam String email) throws Exception {
+        User reqUser = userService.findUserByJwt(jwt);
+        Post reqPost = postService.findPostById(postId);
+        postService.sendPost(reqUser, reqPost, email);
+        return new ResponseEntity<>(reqPost, HttpStatus.ACCEPTED);
+    }
+
     @DeleteMapping("/api/posts/{postId}")
     public ResponseEntity<ApiResponse> deletePost(@RequestHeader("Authorization") String jwt, @PathVariable("postId") Integer postId) throws Exception {
         User reqUser = userService.findUserByJwt(jwt);

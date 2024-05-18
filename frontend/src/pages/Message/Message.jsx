@@ -110,10 +110,10 @@ const Message = () => {
   };
 
   const onMessageReceive = (payload) => {
-    const recivedMessage = JSON.parse(payload.body);
-    console.log("message revice from websocket", recivedMessage);
+    const receivedMessage = JSON.parse(payload.body);
+    console.log("Message received from websocket");
 
-    setMessages((prevMessages) => [...prevMessages, recivedMessage]);
+    setMessages((prevMessages) => [...prevMessages, receivedMessage]);
   };
 
   useEffect(() => {
