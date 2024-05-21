@@ -20,7 +20,7 @@ import {
   getMessagesChat,
 } from "../../Redux/Message/message.action";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import { uploadToCloud } from "../../utils/uploadToCloud";
+import { UploadToCloud } from "../../utils/uploadToCloud";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +48,7 @@ const Message = () => {
   const handleSelectImage = async (e) => {
     setIsLoading(true);
     console.log("select image");
-    const imgUrl = await uploadToCloud(e.target.files[0], "image");
+    const imgUrl = await UploadToCloud(e.target.files[0], "image");
     setSelectedImage(imgUrl);
     setIsLoading(false);
   };

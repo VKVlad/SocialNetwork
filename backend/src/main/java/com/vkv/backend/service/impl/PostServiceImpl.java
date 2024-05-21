@@ -4,6 +4,7 @@ import com.vkv.backend.model.Post;
 import com.vkv.backend.model.User;
 import com.vkv.backend.repository.PostRepository;
 import com.vkv.backend.repository.UserRepository;
+import com.vkv.backend.service.ImageModerationService;
 import com.vkv.backend.service.PostService;
 import com.vkv.backend.service.UserService;
 import jakarta.mail.internet.MimeMessage;
@@ -15,6 +16,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -24,6 +26,8 @@ import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
+    @Autowired
+    private ImageModerationService imageModerationService;
     @Autowired
     PostRepository postRepository;
     @Autowired
@@ -35,6 +39,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post createNewPost(Post post, Integer userId) throws Exception {
+        byte[] imageBytes = fetchImageBytes(post.getImage());
+
+        if (!imageModerationService.isImageSafe(imageBytes)) {
+            throw new Exception("The image contains sensitive content and cannot be uploaded.");
+        }
         Post newPost = new Post();
         newPost.setCaption(post.getCaption());
         newPost.setImage(post.getImage());
@@ -43,6 +52,13 @@ public class PostServiceImpl implements PostService {
         newPost.setUser(userService.findUserById(userId));
         postRepository.save(newPost);
         return newPost;
+    }
+
+    private byte[] fetchImageBytes(String imageUrl) throws IOException {
+        URL url = new URL(imageUrl);
+        try (InputStream in = url.openStream()) {
+            return IOUtils.toByteArray(in);
+        }
     }
 
     @Override
@@ -121,15 +137,13 @@ public class PostServiceImpl implements PostService {
         helper.setSubject(user.getFirstName() + " " + user.getLastName() + " shared a post with you!");
         helper.setText(getHtmlContent(user, post), true);
 
-        // Встраиваем изображение пользователя
         InputStream userAvatarStream = new URL(user.getAvatarUrl()).openStream();
-        byte[] userAvatarBytes = IOUtils.toByteArray(userAvatarStream); // Используем IOUtils для чтения в массив байтов
+        byte[] userAvatarBytes = IOUtils.toByteArray(userAvatarStream);
         ByteArrayResource userAvatarResource = new ByteArrayResource(userAvatarBytes);
         helper.addInline("userAvatar", userAvatarResource, "image/jpeg");
 
-        // Встраиваем изображение поста
         InputStream postImageStream = new URL(post.getImage()).openStream();
-        byte[] postImageBytes = IOUtils.toByteArray(postImageStream); // Используем IOUtils для чтения в массив байтов
+        byte[] postImageBytes = IOUtils.toByteArray(postImageStream);
         ByteArrayResource postImageResource = new ByteArrayResource(postImageBytes);
         helper.addInline("postImage", postImageResource, "image/jpeg");
 

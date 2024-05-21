@@ -5,23 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4efce8db-fb23-42b8-b1ac-e4686801ccda" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/config/GoogleVisionConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/ImageModerationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/ImageModerationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/config-overrides.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/webpack.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/DTO/UserIdSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/DTO/UserIdSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/EmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/PostServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vkv/backend/service/PostService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vkv/backend/service/PostService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vkv/backend/service/impl/PostServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vkv/backend/service/impl/PostServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/utils/uploadToCloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/uploadToCloud.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -103,7 +112,11 @@
       <workItem from="1715746131203" duration="410000" />
       <workItem from="1715800017254" duration="28000" />
       <workItem from="1715879271891" duration="128000" />
-      <workItem from="1715993225971" duration="6447000" />
+      <workItem from="1715993225971" duration="6946000" />
+      <workItem from="1716009444773" duration="1285000" />
+      <workItem from="1716013343585" duration="2000" />
+      <workItem from="1716124336725" duration="1648000" />
+      <workItem from="1716324747406" duration="6286000" />
     </task>
     <servers />
   </component>

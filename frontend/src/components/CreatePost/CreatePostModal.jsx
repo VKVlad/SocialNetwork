@@ -7,18 +7,19 @@ import {
   IconButton,
   Modal,
   Typography,
-  TextField,
+  TextField, SnackbarContent, Snackbar,
 } from "@mui/material";
 import { Formik, useFormik } from "formik";
 import React, { useState } from "react";
 import ImageIcon from "@mui/icons-material/Image";
 import VideocamIcon from "@mui/icons-material/Videocam";
-import { uploadToCloud } from "../../utils/uploadToCloud";
+import { UploadToCloud } from "../../utils/uploadToCloud";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createCommentAction,
   createPostAction,
 } from "../../Redux/Post/post.action";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -34,25 +35,41 @@ const style = {
 };
 
 const CreatePostModal = ({ handleClose, open }) => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [selectedImage, setSelectedImage] = useState();
   const [selectedVideo, setSelectedVideo] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
 
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
+  };
+
+  const enqueueSnackbar = (message, options) => {
+    setSnackbarMessage(message);
+    setOpenSnackbar(true);
+  };
+
   const handleSelectImage = async (event) => {
     setIsLoading(true);
-    const imageUrl = await uploadToCloud(event.target.files[0], "image");
-    setSelectedImage(imageUrl);
+    const imageUrl = await UploadToCloud(event.target.files[0], 'image', enqueueSnackbar);
+    if (imageUrl) {
+      setSelectedImage(imageUrl);
+      await formik.setFieldValue('image', imageUrl);
+    }
     setIsLoading(false);
-    formik.setFieldValue("image", imageUrl);
   };
+
   const handleSelectVideo = async (event) => {
     setIsLoading(true);
-    const videoUrl = await uploadToCloud(event.target.files[0], "video");
-    setSelectedVideo(videoUrl);
+    const videoUrl = await UploadToCloud(event.target.files[0], 'video');
+    if (videoUrl) {
+      setSelectedVideo(videoUrl);
+      await formik.setFieldValue('video', videoUrl);
+    }
     setIsLoading(false);
-    formik.setFieldValue("video", videoUrl);
   };
 
   const formik = useFormik({
@@ -67,10 +84,15 @@ const CreatePostModal = ({ handleClose, open }) => {
       formik.resetForm();
       setSelectedVideo("");
       setSelectedVideo("");
+      handleClose();
     },
   });
 
+
+
   return (
+      <div>
+
     <Modal
       open={open}
       onClose={handleClose}
@@ -164,6 +186,30 @@ const CreatePostModal = ({ handleClose, open }) => {
         </Backdrop>
       </Box>
     </Modal>
+        <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            open={openSnackbar}
+            autoHideDuration={6000}
+            onClose={handleSnackbarClose}
+        >
+          <SnackbarContent
+              style={{
+                backgroundColor: '#ff9800',
+              }}
+              message={snackbarMessage}
+              action={
+                <React.Fragment>
+                  <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarClose}>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+          />
+        </Snackbar>
+      </div>
   );
 };
 

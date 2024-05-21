@@ -9,11 +9,11 @@ import {
   Avatar,
   Backdrop,
   CircularProgress,
-  IconButton,
+  IconButton, Snackbar, SnackbarContent,
   TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { uploadToCloud } from "../../utils/uploadToCloud";
+import { UploadToCloud } from "../../utils/uploadToCloud";
 import EditIcon from "@mui/icons-material/Edit";
 
 const style = {
@@ -32,6 +32,8 @@ const style = {
 };
 
 export default function ProfileModal({ open, handleClose }) {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
   const [selectedAvatar, setSelectedAvatar] = useState(auth.user.avatarUrl);
@@ -39,6 +41,15 @@ export default function ProfileModal({ open, handleClose }) {
     auth.user.profilePictureUrl
   );
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
+  };
+
+  const enqueueSnackbar = (message, options) => {
+    setSnackbarMessage(message);
+    setOpenSnackbar(true);
+  };
 
   const handleSubmit = (values) => {
     dispatch(updateProfileAction(values));
@@ -61,18 +72,22 @@ export default function ProfileModal({ open, handleClose }) {
 
   const handleSelectAvatar = async (event) => {
     setIsLoading(true);
-    const imageUrl = await uploadToCloud(event.target.files[0], "image");
-    setSelectedAvatar(imageUrl);
+    const imageUrl = await UploadToCloud(event.target.files[0], 'image', enqueueSnackbar);
+    if (imageUrl) {
+      setSelectedAvatar(imageUrl);
+      await formik.setFieldValue('avatarUrl', imageUrl);
+    }
     setIsLoading(false);
-    await formik.setFieldValue("avatarUrl", imageUrl);
   };
 
   const handleSelectProfilePicture = async (event) => {
     setIsLoading(true);
-    const imageUrl = await uploadToCloud(event.target.files[0], "image");
-    setSelectedProfilePicture(imageUrl);
+    const imageUrl = await UploadToCloud(event.target.files[0], 'image', enqueueSnackbar);
+    if (imageUrl) {
+      setSelectedProfilePicture(imageUrl);
+      await formik.setFieldValue('selectedProfilePicture', imageUrl);
+    }
     setIsLoading(false);
-    await formik.setFieldValue("profilePictureUrl", imageUrl);
   };
 
   return (
@@ -194,6 +209,29 @@ export default function ProfileModal({ open, handleClose }) {
           </Backdrop>
         </Box>
       </Modal>
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+      >
+        <SnackbarContent
+            style={{
+              backgroundColor: '#ff9800',
+            }}
+            message={snackbarMessage}
+            action={
+              <React.Fragment>
+                <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarClose}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+        />
+      </Snackbar>
     </div>
   );
 }

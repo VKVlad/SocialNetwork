@@ -7,21 +7,26 @@
     "@cloudinary/url-gen": "^1.19.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@mui/material": "^5.15.15",
     "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@reduxjs/toolkit": "^2.2.1",
     "@sayings/react-reels": "^1.0.2",
+    "@tensorflow/tfjs": "^4.19.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "assert": "^2.1.0",
     "axios": "^1.6.8",
+    "buffer": "^6.0.3",
     "cloc": "^2.2.0",
     "cloudinary": "^2.1.0",
     "crypto-browserify": "^3.12.0",
     "formik": "^2.4.5",
     "https-browserify": "^1.0.0",
     "net": "^1.0.2",
+    "nsfwjs": "^4.1.0",
+    "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "querystring-es3": "^0.2.1",
     "react": "^18.2.0",
@@ -38,14 +43,15 @@
     "url": "^0.11.3",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
+    "webpack": "^5.91.0",
     "yup": "^1.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "loc": "./node_modules/.bin/cloc --exclude-dir node_modules,.meteor,.vscode,typings,typings-own,.git,.idea ./"
+      "start": "react-app-rewired start",
+      "build": "react-app-rewired build",
+      "test": "react-app-rewired test",
+      "eject": "react-scripts eject",
+      "loc": "./node_modules/.bin/cloc --exclude-dir node_modules,.meteor,.vscode,typings,typings-own,.git,.idea ./"
   },
   "eslintConfig": {
     "extends": [
@@ -67,6 +73,7 @@
   },
   "devDependencies": {
     "cloc": "^2.2.0",
+    "react-app-rewired": "^2.2.1",
     "tailwindcss": "^3.4.3"
   }
 }

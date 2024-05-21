@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import "tailwindcss/tailwind.css";
-import { uploadToCloud } from "../../utils/uploadToCloud";
+import { UploadToCloud } from "../../utils/uploadToCloud";
 import { useDispatch } from "react-redux";
 import { createReelAction } from "../../Redux/Reel/reel.action";
 import BackupIcon from "@mui/icons-material/Backup";
@@ -37,10 +37,10 @@ const CreateReelsForm = ({ handleClose }) => {
 
   const handleSelectVideo = async (event) => {
     setIsLoading(true);
-    const videoUrl = await uploadToCloud(event.target.files[0], "video");
+    const videoUrl = await UploadToCloud(event.target.files[0], "video");
     setSelectedVideo(videoUrl);
     setIsLoading(false);
-    formik.setFieldValue("video", videoUrl);
+    await formik.setFieldValue("video", videoUrl);
   };
 
   const formik = useFormik({
