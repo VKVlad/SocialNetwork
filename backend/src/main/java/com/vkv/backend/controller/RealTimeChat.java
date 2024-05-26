@@ -1,6 +1,7 @@
 package com.vkv.backend.controller;
 
 import com.vkv.backend.model.Message;
+import com.vkv.backend.utils.EncryptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,6 +19,12 @@ public class RealTimeChat {
     public Message sendToUser(
             @Payload Message message,
             @DestinationVariable String groupId) {
+        try {
+            String decryptedContent = EncryptionUtils.decrypt(message.getContent());
+            message.setContent(decryptedContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         simpMessagingTemplate.convertAndSendToUser(groupId, "/private", message);
         return message;
     }

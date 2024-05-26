@@ -20,11 +20,11 @@ import {
   getMessagesChat,
 } from "../../Redux/Message/message.action";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import { UploadToCloud } from "../../utils/uploadToCloud";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useNavigate } from "react-router-dom";
 import {API_BASE_URL} from "../../config/api";
+import {uploadToCloudWithoutFiltering} from "../../utils/uploadWithOutFiltering";
 
 const Message = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const Message = () => {
   const handleSelectImage = async (e) => {
     setIsLoading(true);
     console.log("select image");
-    const imgUrl = await UploadToCloud(e.target.files[0], "image");
+    const imgUrl = await uploadToCloudWithoutFiltering(e.target.files[0], "image");
     setSelectedImage(imgUrl);
     setIsLoading(false);
   };
@@ -60,15 +60,22 @@ const Message = () => {
       image: selectedImage,
     };
     dispatch(createMessage({ message, sendMessageToServer }));
-
   };
 
   useEffect(() => {
-    dispatch(getMessagesChat(currentChat?.id));
-  }, []);
+    if (currentChat?.id) {
+      dispatch(getMessagesChat(currentChat.id));
+    }
+  }, [currentChat, dispatch]);
+
+  useEffect(() => {
+    if (message.messages) {
+      console.log("Messages:", message.messages);
+      setMessages(message.messages);
+    }
+  }, [message.messages]);
 
   const [stompClient, setStomClient] = useState();
-  console.log("messages", message.chats)
 
   useEffect(() => {
     const sock = new SockJS(`${API_BASE_URL}/ws`);
@@ -76,6 +83,14 @@ const Message = () => {
     setStomClient(stomp);
 
     stomp.connect({}, onConnect, onErr);
+
+    return () => {
+      if (stompClient) {
+        stompClient.disconnect(() => {
+          console.log("WebSocket disconnected");
+        });
+      }
+    };
   }, []);
 
   const onConnect = () => {
@@ -90,14 +105,19 @@ const Message = () => {
 
   useEffect(() => {
     console.log("сіллі михайло");
-    if (stompClient && auth.user && currentChat && !isSubscribed) {
+    if (stompClient && auth.user && currentChat) {
       const subscription = stompClient.subscribe(
-        `/user/${currentChat.id}/private`,
-        onMessageReceive
+          `/user/${currentChat.id}/private`,
+          onMessageReceive
       );
       setIsSubscribed(true);
+
+      return () => {
+        subscription.unsubscribe();
+        setIsSubscribed(false);
+      };
     }
-  });
+  }, [stompClient, auth.user, currentChat]);
 
   const sendMessageToServer = (newMessage) => {
     if (stompClient && newMessage) {
@@ -146,7 +166,7 @@ const Message = () => {
                           setMessages(item.messages);
                         }}
                       >
-                        <UserChatCard chat={item} />
+                        <UserChatCard chat={item}/>
                       </div>
                     );
                   })}

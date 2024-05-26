@@ -7,6 +7,7 @@ import com.vkv.backend.repository.ChatRepository;
 import com.vkv.backend.repository.MessageRepository;
 import com.vkv.backend.service.ChatService;
 import com.vkv.backend.service.MessageService;
+import com.vkv.backend.utils.EncryptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class MessageServiceImpl implements MessageService {
         Message message = new Message();
         message.setChat(chat);
         message.setUser(user);
-        message.setContent(req.getContent());
+        message.setContent(EncryptionUtils.encrypt(req.getContent()));
         message.setImage(req.getImage());
         message.setTimestamp(LocalDateTime.now());
         chat.getMessages().add(message);
@@ -38,6 +39,13 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> findChatsMessages(Integer chatId) throws Exception {
         chatService.findChatById(chatId);
-        return messageRepository.findByChatId(chatId);
+        List<Message> messages = messageRepository.findByChatId(chatId);
+        for (Message message : messages) {
+            String decryptedContent = EncryptionUtils.decrypt(message.getContent());
+            message.setContent(decryptedContent);
+        }
+        return messages;
     }
+
+
 }
