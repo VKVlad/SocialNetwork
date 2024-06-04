@@ -85,7 +85,7 @@ export default function ProfileModal({ open, handleClose }) {
     const imageUrl = await UploadToCloud(event.target.files[0], 'image', enqueueSnackbar);
     if (imageUrl) {
       setSelectedProfilePicture(imageUrl);
-      await formik.setFieldValue('selectedProfilePicture', imageUrl);
+      await formik.setFieldValue('profilePictureUrl', imageUrl);
     }
     setIsLoading(false);
   };

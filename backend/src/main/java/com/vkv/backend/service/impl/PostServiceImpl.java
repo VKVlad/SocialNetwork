@@ -39,11 +39,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post createNewPost(Post post, Integer userId) throws Exception {
-        byte[] imageBytes = fetchImageBytes(post.getImage());
-
-        if (!imageModerationService.isImageSafe(imageBytes)) {
-            throw new Exception("The image contains sensitive content and cannot be uploaded.");
-        }
+//        byte[] imageBytes = fetchImageBytes(post.getImage());
+//
+//        if (!imageModerationService.isImageSafe(imageBytes)) {
+//            throw new Exception("The image contains sensitive content and cannot be uploaded.");
+//        }
         Post newPost = new Post();
         newPost.setCaption(post.getCaption());
         newPost.setImage(post.getImage());

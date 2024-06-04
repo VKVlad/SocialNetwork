@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4efce8db-fb23-42b8-b1ac-e4686801ccda" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/utils/EncryptionUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/utils/uploadWithOutFiltering.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/controller/RealTimeChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/controller/RealTimeChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/MessageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vkv/backend/controller/RealTimeChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vkv/backend/controller/RealTimeChat.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vkv/backend/service/impl/MessageServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vkv/backend/service/impl/MessageServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/Message/ChatMessage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/Message/ChatMessage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/Message/Message.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/Message/Message.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/Message/UserChatCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/Message/UserChatCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vkv/backend/service/impl/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +68,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -120,11 +109,18 @@
       <workItem from="1716124336725" duration="1648000" />
       <workItem from="1716324747406" duration="6758000" />
       <workItem from="1716461270791" duration="6412000" />
-      <workItem from="1716681798329" duration="9434000" />
+      <workItem from="1716681798329" duration="13113000" />
+      <workItem from="1716994070666" duration="2445000" />
+      <workItem from="1717284380173" duration="234000" />
+      <workItem from="1717414169973" duration="6749000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
